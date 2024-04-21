@@ -37,6 +37,7 @@ type Element struct {
 	Title       string      `json:"title"`
 	Description string      `json:"description"`
 	MCOptions   []string    `json:"multipleChoiceOptions"`
+	Sides       [][]string  `json:"pairSelectPairs"`
 	Validator   Validator   `json:"validator"`
 }
 
