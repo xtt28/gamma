@@ -1,5 +1,10 @@
 package data
 
+import (
+	"regexp"
+	"slices"
+)
+
 // Language is a representation of a language code according to the ISO 639-1
 // and 3166-1 Alpha-2 standards, e.g. en-US.
 type Language string
@@ -55,4 +60,23 @@ type Validator struct {
 	// questions. The pairs created by the learner must match the pairs specified
 	// here in order for the answer to be considered valid.
 	PairsMustBe [][]string `json:"pairsMustBe"`
+}
+
+// ValidateText validates a given answer based on the validator's configuration
+// and returns whether the answer is valid.
+func (v Validator) ValidateText(answer string) bool {
+	if !slices.Contains(v.MustBeIn, answer) {
+		return false
+	}
+
+	isRegexMatch := len(v.MustMatchOne) == 0
+
+	for _, r := range v.MustMatchOne {
+		if matched, _ := regexp.MatchString(r, answer); matched {
+			isRegexMatch = true
+			break
+		}
+	}
+
+	return isRegexMatch
 }
