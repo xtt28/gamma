@@ -36,4 +36,22 @@ type Element struct {
 	Type        ElementType `json:"type"`
 	Title       string      `json:"title"`
 	Description string      `json:"description"`
+	MCOptions   []string    `json:"multipleChoiceOptions"`
+	Validator   Validator   `json:"validator"`
+}
+
+// Validator represents a set of rules that answers to an element of a lesson
+// will be checked against.
+type Validator struct {
+	// MustBeIn is an array of possible answers to the question. The learner's
+	// answer must be in this array in order to be considered valid.
+	MustBeIn []string `json:"mustBeIn"`
+	// MustMatchOne is an array of regular expressions that match possible answers
+	// to the question. The learner's answer must match one of these regular
+	// expressions in order to be considered valid.
+	MustMatchOne []string `json:"mustMatchOne"`
+	// PairsMustBe is an array of string pairs used for validating pair matching
+	// questions. The pairs created by the learner must match the pairs specified
+	// here in order for the answer to be considered valid.
+	PairsMustBe [][]string `json:"pairsMustBe"`
 }
