@@ -26,12 +26,14 @@ const (
 
 // Lesson is a representation of a lesson for a language.
 type Lesson struct {
-	TargetLanguage Language `json:"target"`
+	TargetLanguage Language  `json:"target"`
 	Elements       []Element `json:"elements"`
 }
 
 // Element is an element present in a lesson for a language, i.e. a description
 // or quiz question.
 type Element struct {
-	Type ElementType `json:"type"`
+	Type        ElementType `json:"type"`
+	Title       string      `json:"title"`
+	Description string      `json:"description"`
 }
